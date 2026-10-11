@@ -2,6 +2,8 @@
 
 Example Menu System using Python 3.14 and Tkinter. This project demonstrates a simple menu system with multiple pages and navigation between them.
 
+<img width="981" height="777" alt="image" src="https://github.com/user-attachments/assets/b3ef19eb-cbba-4c26-9868-f10917235356" />
+
 To run the application, ensure you have Python 3.14 installed and execute the `main.py` file. The application window will open, allowing you to navigate through different pages using the menu options.
 
 > [!NOTE]
