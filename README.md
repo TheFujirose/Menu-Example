@@ -7,7 +7,7 @@ Example Menu System using Python 3.14 and Tkinter. This project demonstrates a s
 To run the application, ensure you have Python 3.14 installed and execute the `main.py` file. The application window will open, allowing you to navigate through different pages using the menu options.
 
 > [!NOTE]
-> Various methods in the `menu_principal.py` file are marked as abstract and need to be implemented in the derived classes.
+> Various methods in the `menu_principal.py` file are marked as abstract and need to be implemented not in a derived class. remove the decorator.
 
 For your own project it is reccomended to change the application icon to your own. You can do this by replacing the `assets/icon.png` file with your desired icon image. Make sure the new icon file is in the same path and has the same name (`icon.png`) for the application to display it correctly.
 
