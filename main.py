@@ -10,12 +10,15 @@ Version: 0.0.1
 """
 
 import tkinter as tk
-from tkinter import ttk
 from pages import different_example_page, example_page
-from typing import Final
 import pages.menu_principal as menu_principal
 
 class Main(tk.Tk):
+    """
+    Main class for the menu example application
+    This class is a subclass of tk.Tk and is used to create the main window for the application.
+    It initializes the application, sets up the window properties, and manages the different pages of the application.
+    """
 
     def __init__(self):
         """
