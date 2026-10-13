@@ -2,7 +2,7 @@
 
 Example Menu System using Python 3.14 and Tkinter. This project demonstrates a simple menu system with multiple pages and navigation between them.
 
-<img width="981" height="777" alt="image" src="https://github.com/user-attachments/assets/b3ef19eb-cbba-4c26-9868-f10917235356" />
+<img width="981" height="777" alt="index page" src="https://github.com/user-attachments/assets/b3ef19eb-cbba-4c26-9868-f10917235356" />
 
 To run the application, ensure you have Python 3.14 installed, and you'll need `bcrypt` (used to hash passwords). Run by executing the `main.py` file; settings such as debug mode are read from `configs/client.json` (see [Configuration](#configuration)). The application window will open, allowing you to navigate through different pages using the menu options.
 
@@ -80,6 +80,9 @@ To call a page from another page, you can use the `controller` attribute that is
 > ```
 
 ## Requiring a Login
+
+<img width="997" height="435" alt="login page" src="https://github.com/user-attachments/assets/be7f16c8-ab09-46d3-8abb-7c1175510070" />
+
 
 Page actions can be protected with the `@is_logged_in` decorator from `auth/decorators.py`. If no one is logged in, the user is sent to `LoginPage` instead of running the method. All the buttons on the `Index` page use it:
 
