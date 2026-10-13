@@ -2,11 +2,12 @@
 module: example_page.py
 description: Example page for the application
 author: Carson Fujita
-date: 2026-10-11
-version: 0.0.1
+date: 2026-10-13
+version: 0.0.2
 """
 
 import tkinter as tk
+
 
 class ExamplePage(tk.Frame):
 
@@ -21,5 +22,5 @@ class ExamplePage(tk.Frame):
         label.pack(pady=10, padx=10)
 
         button = tk.Button(self, text="Go to Home Page",
-                           command=lambda: controller.show_frame("MenuPrincipal"))
+                           command=lambda: controller.show_frame("Index"))
         button.pack()

@@ -1,15 +1,17 @@
 """
-Module name: menu.py
+Module name: index.py
 Description: Principal menu for app
 Author: Carson Fujita
-Date: 2026-10-11
+Date: 2026-10-13
 Version: 0.0.1
 """
-from abc import abstractmethod # Remove this when implementing all methods
 import tkinter as tk
 from tkinter import Menu
 
-class MenuPrincipal(tk.Frame):
+from auth.decorators import is_logged_in
+
+
+class Index(tk.Frame):
     """
     Class to create the principal menu for the application.
     This class is a subclass of tk.Frame and is used to create the main menu for the application.
@@ -72,7 +74,6 @@ class MenuPrincipal(tk.Frame):
         self._button_areas.pack(padx=5, pady=5)
         self._button_patients.pack(padx=5, pady=5)
         self._button_users.pack(padx=5, pady=5)
-        pass
 
     def _construct_transactions_menu(self):
         """
@@ -87,7 +88,6 @@ class MenuPrincipal(tk.Frame):
         self._button_create_procedure.pack(padx=5, pady=5)
         self._button_update_procedure.pack(padx=5, pady=5)
         self._button_delete_procedure.pack(padx=5, pady=5)
-        pass
 
     def _construct_reports_menu(self) -> None:
         """
@@ -102,78 +102,78 @@ class MenuPrincipal(tk.Frame):
         self._button_patients_report.pack(padx=5, pady=5)
         self._button_users_report.pack(padx=5, pady=5)
         self._button_procedures_report.pack(padx=5, pady=5)
-        pass
 
+    @is_logged_in
     def view_institutions(self) -> None:
         """
         Method to view institutions
         """
-        self.controller.show_frame("ExamplePage")
-        pass
+        self.controller.show_frame("InstitutionsPage")
 
-
-    """
-    TODO: These methods are not to be overridden, they are to be implemented here. 
-    I just put that here to show that these methods are required to be implemented.
-    This means you gotta remove the "@abstractmethod" decorator and implement the methods here.
-    """
-
+    @is_logged_in
     def view_areas(self) -> None:
-        self.controller.show_frame("DifferentExamplePage")
-        pass
+        self.controller.show_frame("AreasPage")
 
-    @abstractmethod
+    @is_logged_in
     def view_patients(self) -> None:
         """
         Method to view patients
         """
-        pass
+        # TODO: Change this to an actual page
+        self.controller.show_frame("ExamplePage")
 
-    @abstractmethod
+    @is_logged_in
     def view_users(self) -> None:
         """
         Method to view users
         """
-        pass
+        # TODO: Change this to an actual page
+        self.controller.show_frame("UsersPage")
 
-    @abstractmethod
+    @is_logged_in
     def create_procedure(self) -> None:
         """
         Method to create a procedure
         """
-        pass
+        # TODO: Change this to an actual page
+        self.controller.show_frame("ExamplePage")
 
-    @abstractmethod
+    @is_logged_in
     def update_procedure(self) -> None:
         """
         Method to update a procedure
         """
-        pass
+        # TODO: Change this to an actual page
+        self.controller.show_frame("ExamplePage")
 
-    @abstractmethod
+    @is_logged_in
     def delete_procedure(self) -> None:
         """
         Method to delete a procedure
         """
-        pass
+        # TODO: Change this to an actual page
+        self.controller.show_frame("ExamplePage")
 
-    @abstractmethod
+    @is_logged_in
     def view_patients_report(self) -> None:
         """
         Method to view patients report
         """
-        pass
+        # TODO: Change this to an actual page
+        self.controller.show_frame("ExamplePage")
 
-    @abstractmethod
+    @is_logged_in
     def view_users_report(self) -> None:
         """
         Method to view users report
         """
-        pass
+        # TODO: Change this to an actual page
+        self.controller.show_frame("ExamplePage")
 
-    @abstractmethod
+    @is_logged_in
     def view_procedures_report(self) -> None:
         """
         Method to view procedures report
         """
-        pass
+        # TODO: Change this to an actual page
+        self.controller.show_frame("ExamplePage")
