@@ -75,6 +75,13 @@ class ExampleRepository(AbstractUserRepository):
         ).fetchone()
         return self._to_user(row)
 
+    def get_all(self) -> list[User]:
+        """Gets every user, ordered by name"""
+        rows = self._conn.execute(
+            "SELECT id, name, password_hash, role FROM users ORDER BY name"
+        ).fetchall()
+        return [self._to_user(row) for row in rows]
+
     def close(self) -> None:
         """Closes the database connection"""
         self._conn.close()

@@ -23,3 +23,7 @@ class AbstractUserRepository(ABC):
     @abstractmethod
     def get_by_username(self, username: str) -> User | None:
         """Get's a user by their username"""
+
+    @abstractmethod
+    def get_all(self) -> list[User]:
+        """Gets every user"""

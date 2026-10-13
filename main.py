@@ -5,12 +5,13 @@ Module Name: main.py
 Description: Main module for the menu example application
 Author: Carson Fujita
 Date: 2026-10-11
-Version: 0.0.1
+Version: 0.0.3
 """
 
-import tkinter as tk
 import sys
+import tkinter as tk
 
+import config_manager
 from model.user import User
 from pages import example_page, index, login_page
 from pages.master_tables import areas_page, institutions_page, users_page
@@ -25,19 +26,16 @@ class Main(tk.Tk):
     It initializes the application, sets up the window properties, and manages the different pages of the application.
     """
 
-    _auth: AuthService
+    auth: AuthService
 
-    def __init__(self, is_debug: bool):
+    def __init__(self):
         """
         Main function to run the application
-
-        Arguement:
-            is_debug: sets a user (admin, admin) for debugging
         """
         super().__init__()
-        # Authentication service with no current session
-        # TODO: You should change the example to your own implementation
-        if(is_debug):
+        config_manager.readConfigs("configs/client.json")
+
+        if(config_manager.CONFIGS["debug"]):
             self.auth = AuthService(ExampleRepository(), {})
             self.auth.users.add(User(name="admin", passwordHash=AuthService.hash_password("admin"), role="Admin"))
         else:
@@ -53,6 +51,9 @@ class Main(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
+        if(config_manager.CONFIGS["menubar"]):
+            self._construct_menubar()
+            
         # Dictionary to store active page frames
         self.frames = {}
         # Dictionaries have constant time complexity for lookups, so this is a good choice for storing the frames.
@@ -80,18 +81,27 @@ class Main(tk.Tk):
         to add it, envoke this method in the constructor after the frames are created.
         """
         # build menu bar
-        Menubar = tk.Menu(self)
-        self.config(menu=Menubar)
-        master_tables_menu = tk.Menu(Menubar, tearoff=0)
-        master_tables_menu.add_command(label="Institutions", command=self.frames["Index"].view_institutions)
-        master_tables_menu.add_command(label="Areas", command=self.frames["Index"].view_areas)
-        master_tables_menu.add_command(label="Patients", command=self.frames["Index"].view_patients)
+        self._menubar = tk.Menu(self)
+        self.config(menu=self._menubar)        
+        # Keep Login/Logout as the last entry so update_menubar can find it with "end"
+        self._menubar.add_command(label="Login")
+        self.update_menubar()
 
-        Menubar.add_cascade(label="Master Tables", menu=master_tables_menu)
-        Menubar.add_command(label="Transactions", command=self.frames["Index"].create_procedure)
-        Menubar.add_command(label="Reports", command=self.frames["Index"].view_patients_report)
-        Menubar.add_command(label="Users", command=self.frames["Index"].view_users_report)
-        Menubar.add_command(label="Procedures", command=self.frames["Index"].view_procedures_report)
+    def logout(self) -> None:
+        self.auth.logout()
+        self.update_menubar()
+        self.show_frame("Index")
+
+    def update_menubar(self) -> None:
+        """Shows Login when logged out and Logout when logged in"""
+        if self._menubar is None: # Menubar is optional
+            return 
+        if "user_id" in self.auth.session:
+            self._menubar.entryconfigure("end", label="Logout", command=self.logout)
+        else:
+            self._menubar.entryconfigure("end", label="Login",
+                                         command=lambda: self.show_frame("LoginPage"))
+
 
     def show_frame(self, page_name: str) -> None:
         """
@@ -99,17 +109,10 @@ class Main(tk.Tk):
         """
         frame = self.frames[page_name]
         frame.tkraise()
+        # Lets a page reload its data each time it's shown by binding "<<ShowFrame>>"
+        frame.event_generate("<<ShowFrame>>")
 
 if __name__ == "__main__":
     # Check for arguements
-    arguement_length = len(sys.argv)
-    if (arguement_length < 1 or arguement_length > 2):
-        print("Usage: python3 main.py <debug?>")
-        sys.exit(1)
-    elif arguement_length == 1:
-        is_debug = False
-    else:
-        is_debug = bool(sys.argv[1])
-    
-    app = Main(is_debug)
+    app = Main()
     app.mainloop()

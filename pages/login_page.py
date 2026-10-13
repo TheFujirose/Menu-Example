@@ -70,4 +70,5 @@ class LoginPage(tk.Frame):
 
         self._label_error.config(text="")
         self._entry_username.delete(0, tk.END)
+        self.controller.update_menubar()
         self.controller.show_frame("Index")
